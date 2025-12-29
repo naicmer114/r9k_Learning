@@ -1,0 +1,43 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 15px;
+}
+
+#tablero {
+    padding: 5px;
+    padding-left: 50px;
+    background-color: rgb(101, 83, 60);
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}
+#crear_post {
+    background-color: rgba(132, 230, 255, 0.972);
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    padding: 5px;
+}
+#postear {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-decoration: wavy;
+    font-size: 25px;
+}
+#post {
+    padding-left: 25px;
+    padding-right: 10px;
+    background-color: antiquewhite;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}
+#respuestas {
+    padding: 5px;
+    padding-left: 50px;
+    background-color: antiquewhite;
+    border-top: 1px;
+    border-bottom: 0px;
+    border-style: solid;
+    border-color: black;
+}

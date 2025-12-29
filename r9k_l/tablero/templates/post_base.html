@@ -1,0 +1,38 @@
+{# Uso extends para tener por separado la navegacion del resto del index principal #}
+{% extends 'layouts/nav_general.html' %}
+
+{# Se especifica donde empieza el bloque. "content" es el nombre dado en, este caso, nav_general.css #}
+{% block content %}
+
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/post_base.css' %}">
+<head>
+        <title>r9k_L</title>
+        {# Asigno el iciono del template #}
+        <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
+</head>
+<body>
+<section id="tablero">
+
+    <article id="post">
+        <p>{{post.texto}}</p>
+    </article>
+{#{% print(respuestas.lenght) %}#}
+{% for respuesta in respuestas %}    
+    <div id="respuestas">
+            <p>{{ respuesta }}</p>
+    </div>
+{% endfor %}
+
+    <div id="respuesta_form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form_responder_post }}
+            <button id="responder">Responder</button>
+        </form>
+    </div>
+
+</section>
+</body>
+{% endblock %}

@@ -1,0 +1,37 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 15px;
+}
+
+#tablero {
+    padding: 5px;
+    padding-left: 50px;
+    background-color: rgb(101, 83, 60);
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}
+#post {
+    padding-left: 25px;
+    padding-right: 10px;
+    background-color: antiquewhite;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}
+#respuestas {
+    padding: 5px;
+    padding-left: 50px;
+    background-color: antiquewhite;
+    border-top: 1px;
+    border-style: solid;
+    border-color: black;
+}
+#respuesta_form {
+    padding: 15px;
+    padding-left: 50px;
+    background-color: antiquewhite;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}

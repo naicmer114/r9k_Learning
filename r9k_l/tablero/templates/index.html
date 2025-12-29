@@ -1,0 +1,49 @@
+{# Uso extends para tener por separado la navegacion del resto del index principal #}
+{% extends 'layouts/nav_general.html' %}
+
+{# Se especifica donde empieza el bloque. "content" es el nombre dado en, este caso, nav_general.css #}
+{% block content %}
+    <!DOCTYPE html>
+    {% load static %}
+
+    {# Asigno el css a utilizar para la acomodacion  decoracion #}
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+    {# Asigno el encabezado del template de los admin #}
+    <head>
+        <title>r9k_L</title>
+        {# Asigno el iciono del template #}
+        <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
+    </head>
+    <body>
+        {# declaro el div que se usara para la presentacion del tablero #}
+        <section id="tablero">
+
+            <section id="crear_post">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form_crear_post }}
+                    <button id="postear">Postear</button>
+                </form>
+            </section>
+            {#  {{posts|length}}  #}
+            {% for post in posts %}
+                <article id="post">
+                    
+                    <p>{{post.hora_creada}}</p>
+                    <p><a href='post/{{post.id}}'>{{post.texto}}</p></a>
+
+                    {% for respuesta in respuestas %}
+                            {% if  respuesta.id_post_relacionado.id == post.id %}
+                                <div id="respuestas">
+                                    <p>{{respuesta.texto}}</p>
+                                    <p>{{respuesta.hora_creada}}</p>
+                                </div>
+                            {% endif %}
+                    {% endfor %}
+
+                </article>
+            {% endfor %}
+
+        </section>
+    </body>
+{% endblock%}
