@@ -19,6 +19,15 @@ body {
     border-style: solid;
     border-color: black;
 }
+#img{
+    width: 10%;
+    height: 10%;
+    margin-left: 50px;
+}
+#post_text {
+    display: inline;
+    margin-left: 30px;
+}
 #respuestas {
     padding: 5px;
     padding-left: 50px;

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 '''
     Creamos el modelo de los usuarios registrados en el sistema, \
     nos valandremos de una verificacion de si estan o no activos, \
@@ -25,11 +25,19 @@ class usuarios(models.Model):
 '''
 class posts(models.Model):
     texto=models.TextField()
-    hora_creada=models.TimeField(auto_now=True,)
+    fecha_publicado=models.DateTimeField(default=timezone.now,)
+    id_global=models.IntegerField(default=0)
+    '''
+        No tiene ruta cruda porque va a la carpeta "media" en el proyecto, osea
+        el nucleo del proyecto.
+    '''
+    img = models.ImageField(upload_to='', blank=True, null=True)
     pass
 
 class respuestas(models.Model):
     id_post_relacionado=models.ForeignKey(posts,on_delete=models.CASCADE)
     texto=models.TextField()
-    hora_creada=models.TimeField(auto_now=True,)
+    fecha_publicado=models.DateTimeField(default=timezone.now,)
+    id_global=models.IntegerField(default=0)
+    img = models.ImageField(upload_to='', blank=True, null=True)
     pass

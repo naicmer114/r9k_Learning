@@ -19,7 +19,7 @@
         <section id="tablero">
 
             <section id="crear_post">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form_crear_post }}
                     <button id="postear">Postear</button>
@@ -29,14 +29,17 @@
             {% for post in posts %}
                 <article id="post">
                     
-                    <p>{{post.hora_creada}}</p>
-                    <p><a href='post/{{post.id}}'>{{post.texto}}</p></a>
+                    <p><a href='post/{{ post.id }}'>Anonymous {{ post.fecha_publicado }}No.{{ post.id_global }}</a></p>
+                    
+                    <img id="img" src="{{ post.img.url }}">
+                    <p id="post_text">{{ post.texto }}</p>
 
                     {% for respuesta in respuestas %}
                             {% if  respuesta.id_post_relacionado.id == post.id %}
                                 <div id="respuestas">
-                                    <p>{{respuesta.texto}}</p>
-                                    <p>{{respuesta.hora_creada}}</p>
+                                        <p>Anonymous {{ respuesta.fecha_publicado }} No.{{ respuesta.id_global }}</p>
+                                        <img id="img" src="{{ respuesta.img.url }}">
+                                        <p id="post_text">{{ respuesta.texto }}</p>
                                 </div>
                             {% endif %}
                     {% endfor %}
