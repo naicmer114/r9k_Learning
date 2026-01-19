@@ -21,5 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # De ir a la raiz de la aplicacion web estara el view de la app tablero
-    path('', include('tablero.urls')),
+    path('', include('tablero.urls'))
 ]

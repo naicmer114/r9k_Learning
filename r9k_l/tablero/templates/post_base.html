@@ -3,40 +3,36 @@
 
 {# Se especifica donde empieza el bloque. "content" es el nombre dado en, este caso, nav_general.css #}
 {% block content %}
-    <!DOCTYPE html>
-    {% load static %}
-    <link rel="stylesheet" href="{% static '/css/post_base.css' %}">
-    <head>
-            <title>r9k_L</title>
-            {# Asigno el iciono del template #}
-            <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
-    </head>
-    <body>
-    <section id="tablero">
 
-        <article id="post">
-            <p>Anonymous {{ post.fecha_publicado }}No.{{ post.id_global }}</p>
-                        
-                        <img id="img" src="{{ post.img.url }}">
-                        <p id="post_text">{{ post.texto }}</p>
-        </article>
-    {#{% print(respuestas.lenght) %}#}
-    {% for respuesta in respuestas %}    
-        <div id="respuestas">
-            <p>Anonymous {{ respuesta.fecha_publicado }} No.{{ respuesta.id_global }}</p>
-            <img id="img" src="{{ respuesta.img.url }}">
-            <p id="post_text">{{ respuesta.texto }}</p>
-        </div>
-    {% endfor %}
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/post_base.css' %}">
+<head>
+        <title>r9k_L</title>
+        {# Asigno el iciono del template #}
+        <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
+</head>
+<body>
+<section id="tablero">
 
-        <div id="respuesta_form" enctype="multipart/form-data">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form_responder_post }}
-                <button id="responder">Responder</button>
-            </form>
-        </div>
+    <article id="post">
+        <p>{{post.texto}}</p>
+    </article>
+{#{% print(respuestas.lenght) %}#}
+{% for respuesta in respuestas %}    
+    <div id="respuestas">
+            <p>{{ respuesta }}</p>
+    </div>
+{% endfor %}
 
-    </section>
-    </body>
+    <div id="respuesta_form">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form_responder_post }}
+            <button id="responder">Responder</button>
+        </form>
+    </div>
+
+</section>
+</body>
 {% endblock %}
