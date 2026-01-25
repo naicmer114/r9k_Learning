@@ -1,6 +1,7 @@
 from django.db import models
+from django.utils import timezone
 
-'''
+"""
     Creamos el modelo de los usuarios registrados en el sistema, \
     nos valandremos de una verificacion de si estan o no activos, \
     no estarlo significaria que han inclumplido las normas en la \
@@ -8,28 +9,63 @@ from django.db import models
     eliminarlos de la plataforma tras tener 3 baneos. Ah y \
     razones de baneo, posteriomente seran usadas para des-baneos\
     y distintas acciones por parte de los administradores.
-'''
+"""
+
+
 class usuarios(models.Model):
-    propietario=models.CharField(max_length=128)
-    activo=models.BooleanField(default=True)
-    ban_razon=models.TextField(default="Sin novedad", null=True)
-    ban_count=models.IntegerField(default=0)
+    username = models.CharField(max_length=64)
+    passwd = models.CharField(max_length=64)
+    activo = models.BooleanField(default=True)
+    ban_razon = models.TextField(default="Sin novedad", null=True)
+    ban_count = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.propietario
+        return self.username
+
     pass
-'''
+
+
+"""
     Y en este modelo tendremos las anotaciones de todos los usuarios,\
     solo nos valdremos del id del propietario, el texto de la nota \
     y la hora de cuando fue creada, luego se le añaderan mas metadatos.
-'''
+"""
+
+
 class posts(models.Model):
-    texto=models.TextField()
-    hora_creada=models.TimeField(auto_now=True,)
+    autor = models.CharField(default="Anonymous")
+    texto = models.TextField()
+    fecha_publicado = models.DateTimeField(
+        default=timezone.now,
+    )
+    id_global = models.IntegerField(default=0)
+    """
+        No tiene ruta cruda porque va a la carpeta "media" en el proyecto, osea
+        el nucleo del proyecto.
+    """
+    img = models.ImageField(
+        upload_to="imagenes/", blank=True, null=True, default="imagenes/default/def.png"
+    )
     pass
 
+    def __str__(self):
+        return self.texto + " " + str(self.fecha_publicado)
+
+    pass
+
+
 class respuestas(models.Model):
-    id_post_relacionado=models.ForeignKey(posts,on_delete=models.CASCADE)
-    texto=models.TextField()
-    hora_creada=models.TimeField(auto_now=True,)
+    id_post_relacionado = models.ForeignKey(posts, on_delete=models.CASCADE)
+    autor = models.CharField(default="Anonymous")
+    texto = models.TextField()
+    fecha_publicado = models.DateTimeField(
+        default=timezone.now,
+    )
+    id_global = models.IntegerField(default=0)
+    img = models.ImageField(upload_to="", blank=True, null=True)
+    pass
+
+    def __str__(self):
+        return self.texto + " " + str(self.fecha_publicado)
+
     pass

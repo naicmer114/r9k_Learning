@@ -1,6 +1,21 @@
-<h2>Registro</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Registrarse</button>
-</form>
+{% extends 'layouts/nav_general.html' %}
+{% block content %}
+  <!DOCTYPE html>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/css/register.css' %}">
+  <head>
+    <title>r9k_L/register</title>
+    {# Asigno el iciono del template #}
+    <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
+  </head>
+  <body>
+    <div id="container_register">
+      <h2>Registro</h2>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form_registro }}
+          <button id="enviar">Enviar</button>
+        </form>
+    </div>
+  </body>
+{% endblock%}

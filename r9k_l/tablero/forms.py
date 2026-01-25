@@ -1,16 +1,35 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import posts, respuestas, usuarios
 
-class RegistroForm(UserCreationForm):
-    email = forms.EmailField(required=True)
 
+class registro_form(forms.Form):
+    username = forms.CharField(label="Nombre de usuario", max_length=64, required=True)
+    password_first = forms.CharField(max_length=64, required=True)
+    password_first_confirm = forms.CharField(max_length=64, required=True)
+    pass
+
+
+class login_form(forms.Form):
+    username = forms.CharField(label="Nombre de usuario", max_length=64, required=True)
+    password_first = forms.CharField(max_length=64, required=True)
+    pass
+
+
+class crear_post(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ["username", "email", "password1", "password2"]
+        model = posts
+        fields = {"texto", "img"}
+        labels = {
+            "texto": "",
+            "img": "",
+        }
 
-class crear_post(forms.Form):
-    texto = forms.CharField(label="Texto del post")
 
-class responder_post(forms.Form):
-    texto = forms.CharField(label="Respuesta del Post")
+class responder_post(forms.ModelForm):
+    class Meta:
+        model = respuestas
+        fields = {"texto", "img"}
+        labels = {
+            "texto": "",
+            "imagen": "",
+        }

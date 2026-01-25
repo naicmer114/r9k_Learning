@@ -1,6 +1,5 @@
 {# Uso extends para tener por separado la navegacion del resto del index principal #}
 {% extends 'layouts/nav_general.html' %}
-
 {# Se especifica donde empieza el bloque. "content" es el nombre dado en, este caso, nav_general.css #}
 {% block content %}
     <!DOCTYPE html>
@@ -15,40 +14,37 @@
         <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
     </head>
     <body>
-
-        <!-- Bloque de autenticación --> 
-        {% if user.is_authenticated %} 
-          <p>Bienvenido, {{ user.username }}!</p>
-          <a href="{% url 'logout' %}">Cerrar sesión</a> 
-        {% else %} 
-          <a href="{% url 'login' %}">Login</a> | 
-          <a href="{% url 'registro' %}">Registro</a> 
-        {% endif %} 
-        <!-- Fin bloque autenticación -->
-
-
         {# declaro el div que se usara para la presentacion del tablero #}
         <section id="tablero">
 
             <section id="crear_post">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form_crear_post }}
                     <button id="postear">Postear</button>
                 </form>
             </section>
-            {#  {{posts|length}}  #}
             {% for post in posts %}
                 <article id="post">
                     
-                    <p>{{post.hora_creada}}</p>
-                    <p><a href='post/{{post.id}}'>{{post.texto}}</p></a>
+                    <p><a href='post/{{ post.id }}'>{{ post.autor }} {{ post.fecha_publicado }}No.{{ post.id_global }}</a></p>
+                    {# Si el post SI tiene imagen, entonces se muestra, si no, no se muestra nada #}
+                    {% if post.img and post.img.name != "imagenes/default/def.png" %}
+                        <img id="img" src="{{ post.img.url }}">
+                    {% endif %}
+
+                    <p id="post_text">{{ post.texto }}</p>
 
                     {% for respuesta in respuestas %}
                             {% if  respuesta.id_post_relacionado.id == post.id %}
                                 <div id="respuestas">
-                                    <p>{{respuesta.texto}}</p>
-                                    <p>{{respuesta.hora_creada}}</p>
+                                        <p>{{ respuesta.autor }} {{ respuesta.fecha_publicado }} No.{{ respuesta.id_global }}</p>
+                                        {# Si la respuesta SI tiene imagen, entonces se muestra, si no, no se muestra nada #}
+                                        {% if respuesta.img and respuesta.img.name != "imagenes/default/def.png" %}
+                                            <img id="img" src="{{ respuesta.img.url }}">
+                                        {% endif %}
+                                        
+                                        <p id="post_text">{{ respuesta.texto }}</p>
                                 </div>
                             {% endif %}
                     {% endfor %}
@@ -57,5 +53,6 @@
             {% endfor %}
 
         </section>
+        
     </body>
 {% endblock%}

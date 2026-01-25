@@ -1,6 +1,22 @@
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Entrar</button>
-</form>
+{% extends 'layouts/nav_general.html' %}
+{% block content %}
+  <!DOCTYPE html>
+  {% load static %}
+  <link rel="stylesheet" href="{% static '/css/login.css' %}">
+  <head>
+    <title>r9k_L/login</title>
+    {# Asigno el iciono del template #}
+    <link rel="icon" type="image/x-icon" href="{% static '/img/global_notes/global_notes.png' %}">
+  </head>
+  <body>
+    <div id="container_login">
+      <h2>Login</h2>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form_login }}
+          <button id="enviar">Enviar</button>
+        </form>
+      </form>
+    </div>
+  </body>
+{% endblock%}
